@@ -4,6 +4,7 @@ import {
   getForecast,
   getHistoricalData,
   getHourlyForecast,
+  getWeatherForSpecificDate,
 } from "../controllers/controller.js";
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.get("/forecast", getForecast);
 
 // Get hourly forecast for a city
 router.get("/hourly", getHourlyForecast);
+
+// Get weather data for a specific date
+router.get("/specific-date", getWeatherForSpecificDate);
 
 export default router;

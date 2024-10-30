@@ -5,6 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import CitySelect from "./components/CitySelect";
 import useWeatherData from "./hooks/useWeatherData";
 import { getAnalyticsData, prepareHourlyData } from "./utils/analytics";
+import WeatherDatePicker from "./components/WeatherDatePicker ";
 
 function App() {
   const [city, setCity] = useState("Mumbai");
@@ -53,18 +54,19 @@ function App() {
       <h1 className="text-3xl font-bold mb-4">Weather Dashboard</h1>
       <CitySelect onSelect={handleCitySelect} />
 
-      <button
+      {/* <button
         onClick={() => setCity(city)}
         className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
       >
         Get Weather Data
-      </button>
+      </button> */}
 
       {loading ? (
         <ClipLoader color={"#3b82f6"} size={50} />
       ) : (
         <>
           {weatherData && <WeatherDisplay data={weatherData} />}
+          <WeatherDatePicker city={city} />
           {weatherData.history && weatherData.forecast && (
             <>
               {/* History Chart */}

@@ -40,6 +40,27 @@ const fetchHourlyForecastData = async (location, hours) => {
   // return hourlyData;
 };
 
+// Function to fetch weather data for a specific date
+const fetchWeatherDataForDate = async (location, date) => {
+  const currentDate = new Date().toISOString().split("T")[0];
+
+  // Choose the endpoint based on whether the date is in the past or future
+  const endpoint = date < currentDate ? "history" : "forecast";
+  const url = `http://api.weatherapi.com/v1/${endpoint}.json?key=${weatherApiKey}&q=${location}&dt=${date}`;
+  const response = await axios.get(url);
+
+  // Extract max and min temperature along with the condition
+  const data = response.data.forecast.forecastday[0].day;
+  return {
+    date,
+    maxTemp: data.maxtemp_c,
+    minTemp: data.mintemp_c,
+    condition: data.condition.text,
+  };
+};
+
+// Handlers
+
 export const getData = async (req, res) => {
   const city = req.query.city;
   if (!city) {
@@ -143,6 +164,28 @@ export const getHourlyForecast = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error fetching hourly weather data",
+      error: error.message,
+    });
+  }
+};
+
+// Handler function for a specific date route
+export const getWeatherForSpecificDate = async (req, res) => {
+  const city = req.query.city;
+  const date = req.query.date;
+
+  if (!city || !date) {
+    return res
+      .status(400)
+      .json({ message: "City and date parameters are required" });
+  }
+
+  try {
+    const weatherData = await fetchWeatherDataForDate(city, date);
+    res.json(weatherData);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching weather data for the specified date",
       error: error.message,
     });
   }

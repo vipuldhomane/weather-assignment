@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+const hostedDomain = "https://weather-assignment-rtly.onrender.com";
 const useWeatherData = (city) => {
   const [weatherData, setWeatherData] = useState({
     current: null,
@@ -15,16 +16,16 @@ const useWeatherData = (city) => {
   const fetchWeatherData = async () => {
     setLoading(true);
     try {
-      const current = await axios.get(`http://localhost:5000/api/current`, {
+      const current = await axios.get(`${hostedDomain}/api/current`, {
         params: { city },
       });
-      const history = await axios.get(`http://localhost:5000/api/history`, {
+      const history = await axios.get(`${hostedDomain}/api/history`, {
         params: { city, days: 7 },
       });
-      const forecast = await axios.get(`http://localhost:5000/api/forecast`, {
+      const forecast = await axios.get(`${hostedDomain}/api/forecast`, {
         params: { city, days: 7 },
       });
-      const hourly = await axios.get(`http://localhost:5000/api/hourly`, {
+      const hourly = await axios.get(`${hostedDomain}/api/hourly`, {
         params: { city },
       });
 

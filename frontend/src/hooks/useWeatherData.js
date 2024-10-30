@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const hostedDomain = "https://weather-assignment-rtly.onrender.com";
+export const hostedDomain = "https://weather-assignment-rtly.onrender.com";
 const useWeatherData = (city) => {
   const [weatherData, setWeatherData] = useState({
     current: null,

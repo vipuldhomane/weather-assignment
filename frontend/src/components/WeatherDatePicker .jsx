@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { hostedDomain } from "../hooks/useWeatherData";
 
 const WeatherDatePicker = ({ city }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -22,7 +23,7 @@ const WeatherDatePicker = ({ city }) => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/specific-date?city=${city}&date=${formattedDate}`
+        `${hostedDomain}/api/specific-date?city=${city}&date=${formattedDate}`
       );
       console.log(response.data);
 

@@ -22,6 +22,24 @@ const fetchForecastWeatherData = async (location, days) => {
   return response.data;
 };
 
+// Function to fetch forecast weather data for a specific location and time period
+const fetchHourlyForecastData = async (location, hours) => {
+  const url = `http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${location}&days=1&aqi=no&alerts=no`;
+  const response = await axios.get(url);
+
+  // Limiting data to the specified number of hours
+  const hourlyData = response.data.forecast.forecastday[0].hour.slice(0, hours);
+
+  return hourlyData.map((hour) => ({
+    time: hour.time,
+    temperature: hour.temp_c,
+    condition: hour.condition.text,
+    wind: hour.wind_kph,
+    humidity: hour.humidity,
+  }));
+  // return hourlyData;
+};
+
 export const getData = async (req, res) => {
   const city = req.query.city;
   if (!city) {
@@ -30,6 +48,8 @@ export const getData = async (req, res) => {
 
   try {
     const weatherData = await fetchWeatherData(city);
+    // console.log(weatherData);
+
     res.json(weatherData);
   } catch (error) {
     res.status(500).json({
@@ -59,11 +79,11 @@ export const getHistoricalData = async (req, res) => {
       const formattedDate = date.toISOString().split("T")[0]; // Format date as YYYY-MM-DD
 
       const dailyData = await fetchHistoricalWeatherData(city, formattedDate);
+      console.log(dailyData);
 
       // Extract max and min temperature from the response
       const maxTemp = dailyData.forecast.forecastday[0].day.maxtemp_c;
       const minTemp = dailyData.forecast.forecastday[0].day.mintemp_c;
-      Celsius;
 
       historicalData.push({ date: formattedDate, maxTemp, minTemp });
     }
@@ -81,7 +101,6 @@ export const getForecast = async (req, res) => {
   const city = req.query.city;
   const days = parseInt(req.query.days);
 
-  // Ensure the days parameter is between 1 and 7
   if (!city || isNaN(days) || days <= 0 || days > 7) {
     return res
       .status(400)
@@ -102,6 +121,28 @@ export const getForecast = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Error fetching forecast weather data",
+      error: error.message,
+    });
+  }
+};
+
+// Get hourly forecast for a city
+export const getHourlyForecast = async (req, res) => {
+  const city = req.query.city;
+  const hours = parseInt(req.query.hours) || 24;
+
+  if (!city || isNaN(hours) || hours <= 0) {
+    return res
+      .status(400)
+      .json({ message: "City and a valid hours parameter are required" });
+  }
+
+  try {
+    const hourlyForecast = await fetchHourlyForecastData(city, hours);
+    res.json(hourlyForecast);
+  } catch (error) {
+    res.status(500).json({
+      message: "Error fetching hourly weather data",
       error: error.message,
     });
   }

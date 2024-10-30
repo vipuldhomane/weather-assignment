@@ -1,0 +1,131 @@
+import Creatable from "react-select/creatable";
+
+// Sample list of popular cities
+const options = [
+  { value: "Mumbai", label: "Mumbai" },
+  { value: "Delhi", label: "Delhi" },
+  { value: "Bengaluru", label: "Bengaluru" },
+  { value: "Kolkata", label: "Kolkata" },
+  { value: "Chennai", label: "Chennai" },
+  { value: "Hyderabad", label: "Hyderabad" },
+  { value: "Ahmedabad", label: "Ahmedabad" },
+  { value: "Pune", label: "Pune" },
+  { value: "Jaipur", label: "Jaipur" },
+  { value: "Surat", label: "Surat" },
+  { value: "Lucknow", label: "Lucknow" },
+  { value: "Kanpur", label: "Kanpur" },
+  { value: "Nagpur", label: "Nagpur" },
+  { value: "Visakhapatnam", label: "Visakhapatnam" },
+  { value: "Bhopal", label: "Bhopal" },
+  { value: "Thane", label: "Thane" },
+  { value: "Pimpri-Chinchwad", label: "Pimpri-Chinchwad" },
+  { value: "Patna", label: "Patna" },
+  { value: "Vadodara", label: "Vadodara" },
+  { value: "Ghaziabad", label: "Ghaziabad" },
+  { value: "Ludhiana", label: "Ludhiana" },
+  { value: "Agra", label: "Agra" },
+  { value: "Nashik", label: "Nashik" },
+  { value: "Faridabad", label: "Faridabad" },
+  { value: "Meerut", label: "Meerut" },
+  { value: "Rajkot", label: "Rajkot" },
+  { value: "Kalyan-Dombivli", label: "Kalyan-Dombivli" },
+  { value: "Vasai-Virar", label: "Vasai-Virar" },
+  { value: "Varanasi", label: "Varanasi" },
+  { value: "Srinagar", label: "Srinagar" },
+  { value: "Aurangabad", label: "Aurangabad" },
+  { value: "Dhanbad", label: "Dhanbad" },
+  { value: "Amritsar", label: "Amritsar" },
+  { value: "Navi Mumbai", label: "Navi Mumbai" },
+  { value: "Allahabad", label: "Allahabad" },
+  { value: "Ranchi", label: "Ranchi" },
+  { value: "Coimbatore", label: "Coimbatore" },
+  { value: "Jabalpur", label: "Jabalpur" },
+  { value: "Gwalior", label: "Gwalior" },
+  { value: "Warangal", label: "Warangal" },
+  { value: "Bhubaneswar", label: "Bhubaneswar" },
+  { value: "Salem", label: "Salem" },
+  { value: "Mysuru", label: "Mysuru" },
+  { value: "Tiruchirappalli", label: "Tiruchirappalli" },
+  { value: "Tiruppur", label: "Tiruppur" },
+  { value: "Chandigarh", label: "Chandigarh" },
+  { value: "Mangaluru", label: "Mangaluru" },
+  { value: "Gurgaon", label: "Gurgaon" },
+  { value: "Noida", label: "Noida" },
+  { value: "Dehradun", label: "Dehradun" },
+  { value: "Jammu", label: "Jammu" },
+  { value: "Raipur", label: "Raipur" },
+  { value: "Jodhpur", label: "Jodhpur" },
+  { value: "Agartala", label: "Agartala" },
+  { value: "Kota", label: "Kota" },
+  { value: "Durgapur", label: "Durgapur" },
+  { value: "Bikaner", label: "Bikaner" },
+  { value: "Rourkela", label: "Rourkela" },
+  { value: "Shimla", label: "Shimla" },
+  { value: "Kozhikode", label: "Kozhikode" },
+  { value: "Bhavnagar", label: "Bhavnagar" },
+  { value: "Siliguri", label: "Siliguri" },
+  { value: "Nellore", label: "Nellore" },
+  { value: "Latur", label: "Latur" },
+  { value: "Belgaum", label: "Belgaum" },
+  { value: "Ranchi", label: "Ranchi" },
+  { value: "Chandrapur", label: "Chandrapur" },
+  { value: "Udaipur", label: "Udaipur" },
+  { value: "Jamnagar", label: "Jamnagar" },
+  { value: "Puducherry", label: "Puducherry" },
+  { value: "Kochi", label: "Kochi" },
+  { value: "Bhopal", label: "Bhopal" },
+  { value: "Khargone", label: "Khargone" },
+  { value: "Mandi", label: "Mandi" },
+  { value: "Dharamshala", label: "Dharamshala" },
+  { value: "Jaisalmer", label: "Jaisalmer" },
+  { value: "Haridwar", label: "Haridwar" },
+  { value: "Kumbakonam", label: "Kumbakonam" },
+  { value: "Panchkula", label: "Panchkula" },
+  { value: "Chennai", label: "Chennai" },
+  { value: "Lucknow", label: "Lucknow" },
+  { value: "Bhubaneshwar", label: "Bhubaneshwar" },
+  { value: "Indore", label: "Indore" },
+  { value: "Bhopal", label: "Bhopal" },
+  { value: "Dhanbad", label: "Dhanbad" },
+
+  // Popular International Cities
+  { value: "New York", label: "New York" },
+  { value: "London", label: "London" },
+  { value: "Tokyo", label: "Tokyo" },
+  { value: "Paris", label: "Paris" },
+  { value: "Berlin", label: "Berlin" },
+  { value: "Los Angeles", label: "Los Angeles" },
+  { value: "Chicago", label: "Chicago" },
+  { value: "Dubai", label: "Dubai" },
+  { value: "Singapore", label: "Singapore" },
+  { value: "Sydney", label: "Sydney" },
+  { value: "Toronto", label: "Toronto" },
+  { value: "Rio de Janeiro", label: "Rio de Janeiro" },
+  { value: "Moscow", label: "Moscow" },
+  { value: "Madrid", label: "Madrid" },
+  { value: "Rome", label: "Rome" },
+  { value: "Bangkok", label: "Bangkok" },
+  { value: "Istanbul", label: "Istanbul" },
+  { value: "Hong Kong", label: "Hong Kong" },
+  { value: "Barcelona", label: "Barcelona" },
+  { value: "Los Angeles", label: "Los Angeles" },
+  { value: "San Francisco", label: "San Francisco" },
+];
+
+const CitySelect = ({ onSelect }) => {
+  const handleChange = (selectedOption) => {
+    if (onSelect) {
+      onSelect(selectedOption.value);
+    }
+  };
+
+  return (
+    <Creatable
+      options={options}
+      onChange={handleChange}
+      placeholder="Select city..."
+    />
+  );
+};
+
+export default CitySelect;

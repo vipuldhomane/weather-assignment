@@ -35,7 +35,7 @@ const WeatherDatePicker = ({ city }) => {
   };
 
   return (
-    <div className="flex flex-col items-center p-4 bg-gray-100 rounded-lg shadow-md w-full max-w-md mx-auto">
+    <div className="mt-10 flex flex-col items-center p-4 bg-gray-100 rounded-lg shadow-md w-full max-w-md mx-auto">
       <h2 className="text-xl font-semibold mb-4">
         Select Date for Weather Data
       </h2>
